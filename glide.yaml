@@ -1,0 +1,14 @@
+package: github.com/r15ch13/acbf
+license: MIT
+owners:
+- name: Richard Kuhnt
+  email: r15ch13+git@gmail.com
+import:
+- package: github.com/cheggaaa/pb
+  version: ^1.0.18
+- package: github.com/shirou/gopsutil
+  version: ^2.17.7
+  subpackages:
+  - cpu
+- package: github.com/urfave/cli
+  version: ^1.20.0

@@ -1,0 +1,26 @@
+hash: 258ee3d8d894b593fce4a0fbded5644faa594520913baf617bec69f6704bb50b
+updated: 2017-08-24T13:19:04.1551587+02:00
+imports:
+- name: github.com/cheggaaa/pb
+  version: 657164d0228d6bebe316fdf725c69f131a50fb10
+- name: github.com/go-ole/go-ole
+  version: 085abb85892dc1949567b726dff00fa226c60c45
+  subpackages:
+  - oleutil
+- name: github.com/mattn/go-runewidth
+  version: 97311d9f7767e3d6f422ea06661bc2c7a19e8a5d
+- name: github.com/shirou/gopsutil
+  version: 114c78c777eb86b58e40910cbd3fc451829c366d
+  subpackages:
+  - cpu
+  - internal/common
+- name: github.com/StackExchange/wmi
+  version: ea383cf3ba6ec950874b8486cd72356d007c768f
+- name: github.com/urfave/cli
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
+- name: golang.org/x/sys
+  version: 94b76065f2d2081d0fef24a6e67c571f51a6408a
+  subpackages:
+  - unix
+  - windows
+testImports: []

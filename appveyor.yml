@@ -1,0 +1,50 @@
+version: build-{build}.{branch}
+
+platform: x64
+
+clone_folder: c:\gopath\src\github.com\r15ch13\acbf
+
+environment:
+  GOPATH: c:\gopath
+
+install:
+  - set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
+  - go version
+  - go env
+  - go get github.com/mitchellh/gox
+  - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+  - ps: scoop update
+  - ps: scoop install glide
+  - glide install
+
+build_script:
+  - go vet .
+  - gofmt -s -l .
+  - gox -arch="amd64" -os="windows linux darwin" -output="dist/{{.Dir}}-{{.OS}}-{{.Arch}}"
+
+after_build:
+  - cd dist
+  - ps: |
+      if ($env:appveyor_repo_tag -eq "true") {
+        Rename-Item acbf-darwin-amd64 acbf-$($env:appveyor_repo_tag_name)-darwin-amd64
+        Rename-Item acbf-linux-amd64 acbf-$($env:appveyor_repo_tag_name)-linux-amd64
+        Rename-Item acbf-windows-amd64.exe acbf-$($env:appveyor_repo_tag_name)-windows-amd64.exe
+      }
+  - sha256sum acbf* > SHA256SUMS
+
+artifacts:
+  - path: dist\*
+    name: binaries
+
+deploy:
+  provider: GitHub
+  tag: $(appveyor_repo_tag_name)
+  release: 'Release $(appveyor_repo_tag_name)'
+  description: Realease $(appveyor_repo_tag_name) of acbf
+  auth_token:
+    secure: eZLKTcMfXn0ugF4JztJMUHsbgxLjbSQh7d3NwWnx9wrnqKBkQwNYIXuuDlVZ8fa5
+  artifact: binaries
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
